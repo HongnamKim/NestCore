@@ -1,29 +1,39 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
-  VersionColumn,
 } from 'typeorm';
+import { BaseTable } from '../../common/entity/base-table.entity';
+import { MovieDetail } from './movie-detail.entity';
+import { Director } from '../../director/entity/director.entity';
+
+// ManyToOne --> Director -> 감독은 여러개의 영화
+// OneToOne --> MovieDetail -> 영화는 하나의 상세 내용
+// ManyToMany --> Genre --> 영화는 여러개의 장르, 장르는 여러개의 영화에 속함
 
 @Entity()
-export class Movie {
+export class Movie extends BaseTable {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({
+    unique: true,
+  })
   title: string;
 
   @Column()
   genre: string;
 
-  @CreateDateColumn()
-  createdAt: Date;
+  @OneToOne(() => MovieDetail, (movieDetail) => movieDetail.movie, {
+    cascade: true,
+    nullable: false,
+  })
+  @JoinColumn()
+  detail: MovieDetail;
 
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @VersionColumn()
-  version: number;
+  @ManyToOne(() => Director, (director) => director.id, { nullable: false })
+  director: Director;
 }

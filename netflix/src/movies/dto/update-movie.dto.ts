@@ -14,6 +14,14 @@ export class UpdateMovieDto {
   @IsOptional()
   genre?: string;
 
+  @IsNotEmpty()
+  @IsOptional()
+  detail?: string;
+
+  @IsNotEmpty()
+  @IsOptional()
+  directorId?: number;
+
   //@IsDefined() // 값이 반드시 전달 되어야함. null, undefined 불가능
   //@IsBoolean()
   //@IsOptional()
