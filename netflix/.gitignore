@@ -1,3 +1,6 @@
+# Database
+/postgres-data
+
 # compiled output
 /dist
 /node_modules
@@ -18,6 +21,7 @@ lerna-debug.log*
 # Tests
 /coverage
 /.nyc_output
+/test
 
 # IDEs and editors
 /.idea
