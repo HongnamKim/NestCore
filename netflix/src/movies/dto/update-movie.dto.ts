@@ -1,26 +1,11 @@
-import {
-  ArrayNotEmpty,
-  IsArray,
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { PartialType } from '@nestjs/mapped-types';
+import { CreateMovieDto } from './create-movie.dto';
 
-enum MovieGenre {
-  Fantasy = 'fantasy',
-  Action = 'action',
-}
-
-export class UpdateMovieDto {
-  @IsNotEmpty()
+export class UpdateMovieDto extends PartialType(CreateMovieDto) {
+  /*@IsNotEmpty()
   @IsString()
   @IsOptional()
   title?: string;
-
-  /*@IsNotEmpty()
-  @IsOptional()
-  genre?: string;*/
 
   @IsArray()
   @ArrayNotEmpty()
@@ -35,15 +20,15 @@ export class UpdateMovieDto {
   @IsNotEmpty()
   @IsNumber()
   @IsOptional()
-  directorId?: number;
-
-  //@IsDefined() // 값이 반드시 전달 되어야함. null, undefined 불가능
-  //@IsBoolean()
-  //@IsOptional()
-  //@Validate(PasswordValidator)
-  //@IsPasswordValid()
-  //test: string;
+  directorId?: number;*/
 }
+
+//@IsDefined() // 값이 반드시 전달 되어야함. null, undefined 불가능
+//@IsBoolean()
+//@IsOptional()
+//@Validate(PasswordValidator)
+//@IsPasswordValid()
+//test: string;
 
 /*@ValidatorConstraint()
 class PasswordValidator implements ValidatorConstraintInterface {

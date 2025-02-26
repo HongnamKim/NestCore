@@ -1,12 +1,9 @@
-import {
-  IsDateString,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { PartialType } from '@nestjs/mapped-types';
+import { CreateDirectorDto } from './create-director.dto';
 
-export class UpdateDirectorDto {
-  @IsNotEmpty()
+export class UpdateDirectorDto extends PartialType(CreateDirectorDto) {}
+{
+  /*@IsNotEmpty()
   @IsString()
   @IsOptional()
   name?: string;
@@ -19,5 +16,5 @@ export class UpdateDirectorDto {
   @IsNotEmpty()
   @IsString()
   @IsOptional()
-  nationality?: string;
+  nationality?: string;*/
 }
