@@ -32,9 +32,12 @@ export class AuthController {
   }
 
   @Post('token/access')
-  async rotateAccessToken(@Headers('authorization') token: string) {
-    const payload = await this.authService.parseBearerToken(token, true);
-
+  async rotateAccessToken(
+    /*@Headers('authorization') token: string*/
+    @Req() req: Request,
+  ) {
+    //const payload = await this.authService.parseBearerToken(token, true);
+    const payload = req.user as User;
     return {
       accessToken: await this.authService.issueToken(payload, false),
     };
