@@ -1,31 +1,33 @@
 import {
-  Controller,
-  Post,
-  Headers,
-  UseInterceptors,
   ClassSerializerInterceptor,
+  Controller,
+  Get,
+  Headers,
+  Post,
   Req,
   UseGuards,
-  Get,
+  UseInterceptors,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { AuthService } from './auth.service';
-import { AuthGuard } from '@nestjs/passport';
 import { LocalAuthGuard } from './strategy/local.strategy';
 import { User } from '../user/entities/user.entity';
 import { JwtAuthGuard } from './strategy/jwt.strategy';
+import { Public } from './decorator/public.decorator';
 
 @Controller('auth')
 @UseInterceptors(ClassSerializerInterceptor)
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @Public()
   @Post('register')
   // authorization: Basic $token
   registerUser(@Headers('authorization') token: string) {
     return this.authService.register(token);
   }
 
+  @Public()
   @Post('login')
   login(@Headers('authorization') token: string) {
     return this.authService.login(token);

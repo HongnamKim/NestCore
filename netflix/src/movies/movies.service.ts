@@ -7,6 +7,7 @@ import { DataSource, In, Repository } from 'typeorm';
 import { MovieDetail } from './entity/movie-detail.entity';
 import { Director } from '../director/entity/director.entity';
 import { Genre } from '../genre/entities/genre.entity';
+import { GetMoviesDto } from './dto/get-movies.dto';
 
 @Injectable()
 export class MoviesService {
@@ -24,7 +25,9 @@ export class MoviesService {
     private readonly dataSource: DataSource,
   ) {}
 
-  async findAll(title?: string) {
+  async findAll(dto: GetMoviesDto) {
+    const { title, take, page } = dto;
+
     const qb = this.movieRepository
       .createQueryBuilder('movie')
       .leftJoinAndSelect('movie.director', 'director')

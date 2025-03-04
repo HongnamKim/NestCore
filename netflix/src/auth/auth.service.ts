@@ -125,6 +125,7 @@ export class AuthService {
       throw new BadRequestException('잘못된 로그인 정보입니다.');
     }
 
+    // 들어온 비밀번호를 hashing 한 값과 db 의 hash 값과 비교
     const passOk = await bcrypt.compare(password, user.password);
 
     if (!passOk) {
@@ -134,6 +135,11 @@ export class AuthService {
     return user;
   }
 
+  /**
+   * JWT 발급
+   * @param user 사용자의 id 과 Role
+   * @param isRefreshToken refreshToken 발급 시 true
+   */
   async issueToken(user: { id: number; role: Role }, isRefreshToken: boolean) {
     const accessTokenSecret = this.configService.get<string>(
       envVariableKeys.accessTokenSecret,
